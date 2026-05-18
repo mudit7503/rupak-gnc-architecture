@@ -21,30 +21,30 @@ The navigation architecture uses redundant and complementary sensing to support 
 
 ## 3. Error-State Kalman Filter (ESKF) Architecture
 
-## 3.1 Nominal State (example)
+### 3.1 Nominal State (example)
 The nominal navigation state propagates using inertial mechanization:
 - Position in navigation frame
 - Velocity in navigation frame
 - Attitude (quaternion)
 - IMU bias terms (gyro bias, accelerometer bias)
 
-## 3.2 Error-State Definition
+### 3.2 Error-State Definition
 A small-error state is maintained for linearized estimation updates:
 - Position error, velocity error, attitude error (small-angle)
 - Gyro and accelerometer bias errors
 - Optional sensor scale/misalignment terms as calibration matures
 
-## 3.3 Propagation Step
+### 3.3 Propagation Step
 - Propagate nominal state with IMU measurements at high rate.
 - Propagate error covariance with linearized dynamics and process noise.
 - Use cross-strapped IMU consistency checks for fault isolation and confidence weighting.
 
-## 3.4 Measurement Update Models
+### 3.4 Measurement Update Models
 - **NavIC/GPS update:** position/velocity innovation.
 - **FMCW radar update:** altitude/range-rate innovation.
 - **Vision/LiDAR update:** relative pose/terrain constraints with quality gating.
 
-## 3.5 Quality Gating and Fault Handling
+### 3.5 Quality Gating and Fault Handling
 - Innovation-based gating (NIS/chi-square style thresholding).
 - Sensor validity flags propagated to guidance/control users.
 - Graceful degradation sequencing (e.g., GNSS dropouts, vision obscuration, radar multipath anomalies).

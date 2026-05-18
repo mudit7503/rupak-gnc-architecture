@@ -10,7 +10,7 @@ AI is applied as a **bounded supervisory layer**, not as a direct end-to-end fli
 
 ## 2. Supervisory Functions
 
-## 2.1 Real-Time Trajectory Optimization
+### 2.1 Real-Time Trajectory Optimization
 **Objective:** Improve fuel/margin usage and touchdown quality under disturbances.
 
 - Uses warm-start **Successive Convexification (SCvx)** seeded by the current guidance trajectory.
@@ -23,7 +23,7 @@ AI is applied as a **bounded supervisory layer**, not as a direct end-to-end fli
 | Feasibility | Infeasible outputs are rejected automatically |
 | Safety gate | Constraint violations trigger reversion to baseline trajectory |
 
-## 2.2 Edge LSTM Anomaly Detection + Engine-Out Reallocation
+### 2.2 Edge LSTM Anomaly Detection + Engine-Out Reallocation
 **Objective:** Detect propulsion anomalies early and trigger robust thrust redistribution.
 
 - Onboard LSTM processes telemetry streams (pump RPM, current draw, chamber pressure trends, response lag).
@@ -35,7 +35,7 @@ AI is applied as a **bounded supervisory layer**, not as a direct end-to-end fli
 |---|---|---|
 | RPM/current/pressure trends | Anomaly score, fault class, confidence | Validate, isolate engine, reallocate thrust, tighten guidance envelope |
 
-## 2.3 Vision-Based Hazard Detection and Avoidance (HDA)
+### 2.3 Vision-Based Hazard Detection and Avoidance (HDA)
 **Objective:** Improve landing safety by rejecting hazardous touchdown zones.
 
 - Flash LiDAR/camera data is used to derive terrain slope, roughness, obstacle maps, and confidence masks.
