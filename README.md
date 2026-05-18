@@ -12,6 +12,15 @@ This repository contains the technical documentation baseline for the **Guidance
 | `docs/03_flight_control_laws.md` | Multi-rate loop hierarchy and INDI-centered control laws |
 | `docs/04_ai_supervisory_layer.md` | Isolated supervisory AI for optimization, anomaly handling, and landing hazard avoidance |
 
+### MBSE Technical Deliverables
+
+| Path | Purpose |
+| --- | --- |
+| `docs/propulsion_avionics_icd.md` | Placeholder ICD workspace for propulsion-avionics interface control tables |
+| `docs/system_architecture_map.md` | Placeholder architecture map for Mermaid-based functional routing and sensor-fusion diagrams |
+| `models/differential_thrust_roll_sim.m` | Placeholder script template for differential-thrust roll control verification |
+| `models/sensor_fusion_drift_filter.m` | Placeholder script template for sensor-fusion drift filtering verification |
+
 ## Core Systems Engineering Pillars
 
 ### 1) Requirements Traceability
