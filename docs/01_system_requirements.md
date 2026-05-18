@@ -2,7 +2,7 @@
 
 ## 1.1 Scope
 
-This document defines baseline GNC requirements for RUPAK and the key data interfaces between propulsion and avionics.
+This document defines baseline GNC requirements and the key data interfaces between propulsion and avionics.
 
 ## 1.2 High-Level System Requirements
 
@@ -45,7 +45,7 @@ This document defines baseline GNC requirements for RUPAK and the key data inter
 
 | Command Group | Example Fields | Units | Typical Rate | Notes |
 | --- | --- | --- | --- | --- |
-| Throttle Commands | `throttle_cmd_engine_i`, `throttle_rate_limit` | %, %/s | 400 Hz | Supports differential throttling across the 9 Shakti electric propellant pumps |
+| Throttle Commands | `throttle_cmd_engine_i`, `throttle_rate_limit` | %, %/s | 400 Hz | Supports differential throttling across the 9 electric propellant pumps |
 | BLDC RPM Targets | `bldc_rpm_target_engine_i` | rpm | 200-400 Hz | Enables rapid response to roll-control needs |
 | TVC Angle Commands | `tvc_pitch_cmd`, `tvc_yaw_cmd` | deg | 400 Hz | Dual-axis command path |
 | Arm/Safe and Mode | `engine_enable_mask`, `prop_mode_cmd` | bitmask, enum | 10-50 Hz or event-driven | Safety-critical state machine |

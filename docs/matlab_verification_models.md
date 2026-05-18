@@ -1,8 +1,8 @@
-# RUPAK VTVL — MATLAB Verification Models
+# Flight Control System — MATLAB Verification Models
 
 | | |
 |---|---|
-| **Document ID** | RUPAK-MATLAB-GNC-VER-001 |
+| **Document ID** | FCS-MATLAB-GNC-VER-001 |
 | **Revision** | Rev D |
 | **Classification** | CONFIDENTIAL — PROGRAMME RESTRICTED |
 | **Prepared by** | GNC Simulation and Verification Team |
@@ -12,9 +12,9 @@
 
 ## 1. Purpose and Scope
 
-This document describes the MATLAB verification model used to check RUPAK roll control behavior.
+This document describes the MATLAB verification model used to check roll control behavior.
 
-The focus is practical engineering validation of roll stabilization using differential throttling across the 9 Shakti electric propellant pump-driven engine channels.
+The focus is practical engineering validation of roll stabilization using differential throttling across the 9 electric propellant pump-driven engine channels.
 
 ---
 
@@ -36,7 +36,7 @@ Confirm that roll disturbances are corrected quickly while maintaining command l
 
 - Uses a simplified roll-axis plant for response evaluation.
 - Applies roll-rate feedback for smooth orientation adjustments.
-- Uses differential command shaping across the 9-engine Shakti configuration.
+- Uses differential command shaping across the 9-engine configuration.
 - Enforces practical limits on command amplitude and rate.
 
 ### 3.3 What to Check
@@ -85,4 +85,4 @@ Use this document as a lightweight traceability bridge between architecture-leve
 
 ---
 
-*End of Document — RUPAK-MATLAB-GNC-VER-001 Rev D*
+*End of Document — FCS-MATLAB-GNC-VER-001 Rev D*

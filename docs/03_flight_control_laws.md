@@ -41,7 +41,7 @@ Roll, pitch, and yaw control authority is distributed across propulsion throttli
 | Item | Definition |
 | --- | --- |
 | Controlled Axis | Roll (body X) |
-| Primary Mechanism | Differential throttling across 9 Shakti electric propellant pump-driven engine channels |
+| Primary Mechanism | Differential throttling across 9 electric propellant pump-driven engine channels |
 | Feedback Variable | Roll rate and roll acceleration |
 | Operational Description | Rapidly altering motor speeds to stop the rocket from spinning while maintaining target thrust |
 
