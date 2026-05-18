@@ -2,7 +2,7 @@
 
 ## 2.1 Objective
 
-Define the baseline sensor suite for RUPAK by flight regime and establish an Error-State Kalman Filter (ESKF)-based navigation architecture.
+Define the baseline sensor suite by flight regime and the sensor data blending strategy used for robust navigation.
 
 ## 2.2 Sensor Suite Allocation by Flight Regime
 
@@ -12,53 +12,53 @@ Define the baseline sensor suite for RUPAK by flight regime and establish an Err
 | Exo/coast and Reorientation | Primary source | Intermittent/geometry dependent | Not used | Optional attitude/scene cues | Inertial propagation |
 | Entry and High-Altitude Descent | Primary source | Reacquired for state correction | Activated below operational ceiling | Optional terrain context | Inertial + GNSS blended |
 | Terminal Descent (Low Altitude) | Primary source | Used if quality allows | Primary altitude/vertical-rate source | Primary hazard/relative-nav source | Multi-sensor precision landing mode |
-| Final Flare and Touchdown | Primary source | Optional cross-check | Primary for altitude gate | Primary for hazard lockout and pad-relative pose | Radar/LiDAR-anchored landing solution |
+| Final Flare and Touchdown | Primary source | Optional cross-check | Primary altitude gate source | Primary hazard lockout and pad-relative pose source | Radar/LiDAR-anchored landing solution |
 
 ## 2.3 Sensor Roles and Constraints
 
 | Sensor | Strengths | Constraints | Mitigation |
 | --- | --- | --- | --- |
-| IMU | High-rate dynamics and short-term observability | Bias/scale drift over time | Continuous ESKF bias estimation |
-| NavIC/GPS | Absolute position/velocity observability | Dropout, multipath, degraded geometry | Innovation gating + confidence-weighted fusion |
-| Radar Altimeter | Reliable AGL in terminal descent | Limited range and beam geometry effects | Regime-dependent enable + sanity checks |
-| Flash LiDAR/Cameras | High-resolution terrain/hazard cues | Lighting, dust/plume effects, compute load | Region-of-interest processing + quality flags |
+| IMU | High-rate motion tracking and short-term stability | Bias and scale drift over time | Continuous bias estimation and health checks |
+| NavIC/GPS | Absolute position/velocity reference | Dropout, multipath, degraded geometry | Quality gating and confidence-weighted updates |
+| Radar Altimeter | Reliable altitude-above-ground support in descent | Range and beam-geometry limits | Altitude-dependent activation and sanity checks |
+| Flash LiDAR/Cameras | High-resolution terrain and hazard context | Lighting, dust/plume effects, compute load | Region-of-interest processing with quality flags |
 
-## 2.4 ESKF-Based Fusion Architecture
+## 2.4 Sensor Data Blending Architecture
 
-The fusion stack is organized around a nominal-state propagation path with asynchronous error-state corrections from aiding sensors.
+The navigation stack combines a high-rate inertial backbone with asynchronous corrections from aiding sensors.
 
-## 2.4.1 State Definition (Representative)
+### 2.4.1 Core State Elements
 
-| State Block | Example Elements |
+| State Block | Typical Elements |
 | --- | --- |
-| Nominal State | Position, velocity, attitude quaternion |
-| Error State | Small-angle attitude errors, position/velocity errors |
-| Sensor Biases | Gyro bias, accelerometer bias |
-| Optional Augmented States | Radar bias, vision scale/latency correction |
+| Navigation State | Position, velocity, attitude |
+| Correction State | Small residual errors applied to navigation state |
+| Sensor Bias Tracking | Gyro and accelerometer bias estimates |
+| Optional Augmented Terms | Radar or vision alignment correction terms |
 
-## 2.4.2 Processing Pipeline
+### 2.4.2 Processing Pipeline
 
-1. **Propagation (IMU rate):** Integrate nominal dynamics and propagate covariance.
-2. **Measurement Update (asynchronous):** Apply NavIC/GPS, radar altimeter, and vision/LiDAR innovations with gating.
-3. **Error Injection:** Inject estimated error state into nominal state and reset error-state mean.
-4. **Health and Consistency Monitoring:** Use innovation statistics (NIS/NEES-style checks) and sensor quality flags.
-5. **Output Publication:** Publish navigation state and covariance to guidance/control loops.
+1. **Propagation (IMU rate):** Advance the navigation estimate continuously using IMU data.
+2. **Asynchronous updates:** Blend NavIC/GPS, radar, and vision/LiDAR measurements when valid.
+3. **Correction step:** Apply bounded corrections to keep the estimate stable and consistent.
+4. **Health monitoring:** Use innovation and sensor-quality checks to reject bad updates.
+5. **Output publication:** Publish navigation state at control-consumption rate.
 
-## 2.4.3 Fusion Timing and Data Rates
+### 2.4.3 Timing and Data Rates
 
 | Function | Nominal Rate | Notes |
 | --- | --- | --- |
-| IMU Propagation | 400-1000 Hz | Highest-rate estimator backbone |
-| GNSS/NavIC Update | 5-20 Hz | Quality-gated absolute aiding |
-| Radar Altimeter Update | 20-100 Hz | Activated by altitude regime |
-| Vision/LiDAR Update | 10-30 Hz | Compute-constrained, event/quality driven |
-| Navigation Solution Output | 100 Hz | Consumed by guidance and control |
+| IMU propagation | 400-1000 Hz | Estimation backbone |
+| GNSS/NavIC update | 5-20 Hz | Quality-gated absolute aiding |
+| Radar altimeter update | 20-100 Hz | Active by altitude regime |
+| Vision/LiDAR update | 10-30 Hz | Compute- and quality-driven |
+| Navigation solution output | 100 Hz | Consumed by guidance and control |
 
 ## 2.5 Degraded-Mode Navigation Strategy
 
 | Failure Case | Degraded Strategy |
 | --- | --- |
-| GNSS dropout | Inertial propagation with radar/vision aiding when available |
+| GNSS dropout | Continue inertial propagation and use radar/vision where available |
 | Radar invalid in terminal phase | Increase vision weighting and tighten descent envelope |
 | Vision degradation due to plume/lighting | Fall back to radar + inertial with conservative touchdown target |
 | IMU anomaly | Trigger supervisory fault mode and inhibit aggressive maneuvers |

@@ -1,70 +1,43 @@
-# RUPAK Flight Control Specification
+# RUPAK Flight Control Documentation
 
-This repository contains the technical documentation baseline for the **Guidance, Navigation, and Control (GNC) Flight Control Architecture** of **RUPAK**, a reusable **VTVL (Vertical Takeoff, Vertical Landing)** launch vehicle.
+This repository contains the documentation baseline for the **Guidance, Navigation, and Control (GNC) architecture** of **RUPAK**, a reusable **VTVL (Vertical Takeoff, Vertical Landing)** launch vehicle.
 
 ## Document Structure
 
 | File | Purpose |
 | --- | --- |
-| `README.md` | Program-level architecture overview and systems engineering pillars |
-| `docs/01_system_requirements.md` | Mission and control-system requirements with subsystem interfaces |
-| `docs/02_sensor_configuration.md` | Sensor allocation by flight regime and fusion architecture |
-| `docs/03_flight_control_laws.md` | Multi-rate loop hierarchy and INDI-centered control laws |
-| `docs/04_ai_supervisory_layer.md` | Isolated supervisory AI for optimization, anomaly handling, and landing hazard avoidance |
+| `README.md` | Program-level architecture overview and documentation map |
+| `docs/01_system_requirements.md` | Mission and control-system requirements with interface responsibilities |
+| `docs/02_sensor_configuration.md` | Sensor suite roles by flight regime and sensor data blending approach |
+| `docs/03_flight_control_laws.md` | Multi-rate control hierarchy and actuator command strategy |
+| `docs/04_ai_supervisory_layer.md` | Isolated supervisory AI for optimization, anomaly support, and landing hazard handling |
+| `docs/propulsion_avionics_icd.md` | Propulsion-avionics interface control baseline |
+| `docs/system_architecture_map.md` | High-level closed-loop architecture map |
+| `docs/matlab_verification_models.md` | Verification model overview for roll control and sensor-fusion behavior |
 
-### MBSE Technical Deliverables
+## Core Architecture Snapshot
 
-| Path | Purpose |
-| --- | --- |
-| `docs/propulsion_avionics_icd.md` | Placeholder ICD workspace for propulsion-avionics interface control tables |
-| `docs/system_architecture_map.md` | Placeholder architecture map for Mermaid-based functional routing and sensor-fusion diagrams |
-| `models/differential_thrust_roll_sim.m` | Placeholder script template for differential-thrust roll control verification |
-| `models/sensor_fusion_drift_filter.m` | Placeholder script template for sensor-fusion drift filtering verification |
+- **Multi-rate control loops:**
+  - Guidance loop at **10 Hz**
+  - Attitude stabilization loop at **100 Hz**
+  - Actuator mixing and command loop at **400 Hz**
+- **Roll control:** Differential command shaping across **9 Shakti electric propellant pump-driven engine channels**
+- **Pitch/Yaw control:** **Dual-axis TVC** command path
+- **Sensor suite purpose:** Blend IMU, NavIC/GNSS, radar altimeter, and vision/LiDAR data for stable navigation and precision landing support
 
-## Core Systems Engineering Pillars
+## Systems Engineering Focus
 
-### 1) Requirements Traceability
-
-RUPAK GNC requirements are decomposed from mission objectives into verifiable subsystem requirements and control-loop allocations.
-
-- **Top-down flow:** Mission objective -> flight phase objective -> control requirement -> software/hardware allocation
-- **Bottom-up verification:** Test data and flight telemetry mapped back to each requirement ID
-- **Configuration control:** Requirement changes require impact analysis across guidance, navigation, control, propulsion, and avionics interfaces
-
-**Traceability outcomes**
-
-- Clear requirement ownership
-- Reduced integration ambiguity
-- Faster anomaly triage during test campaigns
-
-### 2) Interface Management
-
-RUPAK uses explicit interface contracts between avionics, propulsion, sensors, and actuators.
-
-- **Data-level definitions:** Units, rates, coordinate frames, timestamps, validity flags
-- **Control authority boundaries:** Guidance commands vs attitude controller outputs vs actuator mixer outputs
-- **Failure behavior contracts:** Timeouts, stale-data handling, degraded modes, and handover logic
-
-**Interface management outcomes**
-
-- Deterministic subsystem interaction
-- Reduced coupling and integration risk
-- Predictable closed-loop behavior under nominal and off-nominal conditions
-
-### 3) Risk and Margin Management
-
-GNC architecture includes quantified margins and risk controls for reusable operations.
-
-- **Performance margins:** Thrust, attitude bandwidth, sensor observability, landing dispersion
-- **Fault tolerance:** Engine-out handling, sensor degradation fallback, and conservative mode transitions
-- **Operational gates:** Flight-rule thresholds for automated mode entry/exit and abort criteria
-
-**Risk/margin outcomes**
-
-- Controlled robustness against disturbances and partial failures
-- Improved landing reliability across varied environmental conditions
-- Measurable readiness progression from simulation to flight test
+- Clear requirement traceability from mission goals to implementation and verification
+- Defined subsystem interfaces with consistent units, rates, timestamps, and fault behavior
+- Practical risk and margin management for reusable operations and degraded-mode handling
 
 ## Usage
 
-Start with `docs/01_system_requirements.md` and read in sequence through `docs/04_ai_supervisory_layer.md`.
+Read in order:
+
+1. `docs/01_system_requirements.md`
+2. `docs/02_sensor_configuration.md`
+3. `docs/03_flight_control_laws.md`
+4. `docs/04_ai_supervisory_layer.md`
+
+Then use the ICD, architecture map, and MATLAB verification notes as supporting technical references.
