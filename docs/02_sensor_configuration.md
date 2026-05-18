@@ -2,7 +2,7 @@
 
 ## 2.1 Objective
 
-Define the baseline sensor suite by flight regime and the sensor data blending strategy used for robust navigation.
+Define the baseline sensor suite by flight regime and the method for blending sensor data for robust navigation.
 
 ## 2.2 Sensor Suite Allocation by Flight Regime
 
@@ -18,14 +18,14 @@ Define the baseline sensor suite by flight regime and the sensor data blending s
 
 | Sensor | Strengths | Constraints | Mitigation |
 | --- | --- | --- | --- |
-| IMU | High-rate motion tracking and short-term stability | Bias and scale drift over time | Continuous bias estimation and health checks |
+| IMU | High-rate motion tracking and short-term stability | Drift over time | Continuous bias tracking and health checks |
 | NavIC/GPS | Absolute position/velocity reference | Dropout, multipath, degraded geometry | Quality gating and confidence-weighted updates |
-| Radar Altimeter | Reliable altitude-above-ground support in descent | Range and beam-geometry limits | Altitude-dependent activation and sanity checks |
+| Radar Altimeter | Reliable altitude-above-ground support in descent | Range and beam-geometry limits | Altitude-based activation and sanity checks |
 | Flash LiDAR/Cameras | High-resolution terrain and hazard context | Lighting, dust/plume effects, compute load | Region-of-interest processing with quality flags |
 
 ## 2.4 Sensor Data Blending Architecture
 
-The navigation stack combines a high-rate inertial backbone with asynchronous corrections from aiding sensors.
+The navigation stack uses high-rate inertial updates and applies corrections from other valid sensors.
 
 ### 2.4.1 Core State Elements
 
@@ -38,10 +38,10 @@ The navigation stack combines a high-rate inertial backbone with asynchronous co
 
 ### 2.4.2 Processing Pipeline
 
-1. **Propagation (IMU rate):** Advance the navigation estimate continuously using IMU data.
+1. **Propagation (IMU rate):** Update the navigation estimate continuously using IMU data.
 2. **Asynchronous updates:** Blend NavIC/GPS, radar, and vision/LiDAR measurements when valid.
-3. **Correction step:** Apply bounded corrections to keep the estimate stable and consistent.
-4. **Health monitoring:** Use innovation and sensor-quality checks to reject bad updates.
+3. **Correction step:** Apply bounded corrections to keep the estimate stable.
+4. **Health monitoring:** Reject bad updates using consistency and quality checks.
 5. **Output publication:** Publish navigation state at control-consumption rate.
 
 ### 2.4.3 Timing and Data Rates

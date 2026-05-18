@@ -2,29 +2,29 @@
 
 ## 3.1 Control Objective
 
-Provide a robust reusable flight-control framework with clear separation between guidance, attitude stabilization, and actuator command execution.
+Provide a clear, robust flight-control framework with separation between guidance, attitude stabilization, and actuator command execution.
 
 ## 3.2 Multi-Rate Control Loop Hierarchy
 
 | Loop Layer | Rate | Primary Inputs | Primary Outputs | Core Method |
 | --- | --- | --- | --- | --- |
-| Guidance Loop | 10 Hz | Navigation state, mission phase, constraints | Desired acceleration, attitude, thrust profile | Constrained trajectory guidance |
-| Attitude & Angular-Rate Loop | 100 Hz | Desired attitude/rates, estimated attitude/rates | Incremental moment/thrust demand | Incremental attitude stabilization |
-| Actuator Mixing & Allocation | 400 Hz | Incremental moment/thrust demand, actuator states | Engine throttle split + TVC deflection commands | Control allocation with limits |
+| Guidance Loop | 10 Hz | Navigation state, mission phase, constraints | Desired acceleration, attitude, thrust profile | Practical trajectory guidance |
+| Attitude & Angular-Rate Loop | 100 Hz | Desired attitude/rates, estimated attitude/rates | Incremental moment/thrust demand | Smooth orientation adjustments |
+| Actuator Mixing & Allocation | 400 Hz | Incremental moment/thrust demand, actuator states | Engine throttle split + TVC deflection commands | Fast control allocation with limits |
 
 ## 3.3 Control Law Structure
 
 ### 3.3.1 Guidance Layer (10 Hz)
 
-- Builds feasible references under vehicle and landing constraints.
+- Builds references that are feasible under vehicle and landing constraints.
 - Publishes smooth setpoints for translational acceleration and attitude.
 - Handles mode logic across descent, terminal guidance, and flare.
 
 ### 3.3.2 Attitude Control Layer (100 Hz)
 
 - Computes incremental control effort from measured body response.
-- Uses feedback-rich updates to keep behavior stable across vehicle changes.
-- Applies gain and bandwidth scheduling across mass, thrust, and dynamic pressure changes.
+- Uses feedback updates to keep behavior stable across vehicle changes.
+- Applies gain scheduling across mass, thrust, and dynamic pressure changes.
 
 ### 3.3.3 Actuator Mixing Layer (400 Hz)
 
@@ -41,9 +41,9 @@ Roll, pitch, and yaw control authority is distributed across propulsion throttli
 | Item | Definition |
 | --- | --- |
 | Controlled Axis | Roll (body X) |
-| Primary Mechanism | Differential command shaping across 9 Shakti electric propellant pump-fed engine channels |
+| Primary Mechanism | Differential throttling across 9 Shakti electric propellant pump-driven engine channels |
 | Feedback Variable | Roll rate and roll acceleration |
-| Key Constraint | Maintain total thrust target while producing roll-corrective moment |
+| Operational Description | Rapidly altering motor speeds to stop the rocket from spinning while maintaining target thrust |
 
 ### 3.4.2 Pitch/Yaw Control via Dual-Axis TVC
 
