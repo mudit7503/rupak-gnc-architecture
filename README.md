@@ -38,4 +38,4 @@ Read in order:
 3. `docs/03_flight_control_laws.md`
 4. `docs/04_ai_supervisory_layer.md`
 
-Then use the MATLAB verification notes as supporting technical references.
+Then use the MATLAB verification note as a supporting technical reference.
