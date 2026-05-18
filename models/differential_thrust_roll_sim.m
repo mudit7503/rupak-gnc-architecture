@@ -48,7 +48,7 @@ close all;          % Close all open figure windows
 clc;                % Clear command window
 
 fprintf('=============================================================\n');
-fprintf('  Flight Control GNC | Differential Thrust Roll (INDI)\n');
+fprintf('  Flight Control System | Differential Thrust Roll (INDI)\n');
 fprintf('  Simulation initialising...\n');
 fprintf('=============================================================\n\n');
 
@@ -431,7 +431,7 @@ fprintf('Peak differential throttle: %.4f %%\n', delta_thr_peak);
 
 fprintf('\nGenerating 5-panel figure...\n');
 
-fig1 = figure('Name', 'Flight Control System | Roll Control INDI Simulation', ...
+fig1 = figure('Name', 'Flight Control System | INDI Differential Thrust Roll Control', ...
               'NumberTitle', 'off', ...
               'Color', [0.15 0.15 0.18], ...
               'Units', 'normalized', ...
