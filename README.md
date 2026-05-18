@@ -7,10 +7,6 @@ This repository contains a Guidance, Navigation, and Control (GNC) documentation
 | File | Purpose |
 | --- | --- |
 | `README.md` | Program-level overview and documentation map |
-| `docs/01_system_requirements.md` | Mission and control requirements with interface responsibilities |
-| `docs/02_sensor_configuration.md` | Sensor roles by flight regime and practical blending sensor data approach |
-| `docs/03_flight_control_laws.md` | Flight control hierarchy and actuator command strategy |
-| `docs/04_ai_supervisory_layer.md` | Supervisory AI for optimization, anomaly support, and landing hazard handling |
 | `docs/matlab_verification_models.md` | Roll-control MATLAB verification model overview |
 
 ## Core Architecture Snapshot
@@ -31,11 +27,6 @@ This repository contains a Guidance, Navigation, and Control (GNC) documentation
 
 ## Usage
 
-Read in order:
+Read:
 
-1. `docs/01_system_requirements.md`
-2. `docs/02_sensor_configuration.md`
-3. `docs/03_flight_control_laws.md`
-4. `docs/04_ai_supervisory_layer.md`
-
-Then use the MATLAB verification note as a supporting technical reference.
+1. `docs/matlab_verification_models.md`
