@@ -14,6 +14,8 @@ Provide a robust, reusable flight-control framework using **Incremental Nonlinea
 
 ## 3.3 INDI-Centered Law Structure
 
+INDI is applied with layered responsibilities so each loop uses the state and actuator information available at its update rate.
+
 ## 3.3.1 Guidance Layer (10 Hz)
 
 - Generates feasible references under vehicle and landing constraints.
@@ -41,6 +43,8 @@ Where \(\Delta u\) is incremental control input, \(\nu_{cmd}\) desired angular a
 - Produces per-engine throttle and TVC servo commands with feedback closure.
 
 ## 3.4 Differential Throttling and TVC Allocation
+
+Roll, pitch, and yaw authority are distributed across propulsion throttling and TVC while preserving total thrust objectives and actuator limits.
 
 ## 3.4.1 Roll Control via Differential Throttling
 

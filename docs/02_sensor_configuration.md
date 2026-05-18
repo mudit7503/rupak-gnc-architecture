@@ -25,6 +25,8 @@ Define the baseline sensor suite for RUPAK by flight regime and establish an Err
 
 ## 2.4 ESKF-Based Fusion Architecture
 
+The fusion stack is organized around a nominal-state propagation path with asynchronous error-state corrections from aiding sensors.
+
 ## 2.4.1 State Definition (Representative)
 
 | State Block | Example Elements |

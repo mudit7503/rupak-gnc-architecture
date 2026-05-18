@@ -19,6 +19,8 @@ This layer provides mission-level optimization and anomaly assistance while rema
 
 ## 4.3 Real-Time Trajectory Optimization (Warm-Start SCvx)
 
+This module continuously refines the reference trajectory within a bounded compute window while preserving feasibility under current vehicle constraints.
+
 ## 4.3.1 Inputs and Outputs
 
 | Inputs | Outputs |
@@ -32,6 +34,8 @@ This layer provides mission-level optimization and anomaly assistance while rema
 - Falls back to baseline deterministic guidance if solver confidence or timing degrades.
 
 ## 4.4 Edge Anomaly Detection and Engine-Out Thrust Reallocation
+
+Anomaly handling focuses on fast detection, bounded classification confidence, and deterministic handoff to certified fault-management logic.
 
 ## 4.4.1 Detection Scope
 
@@ -50,6 +54,8 @@ This layer provides mission-level optimization and anomaly assistance while rema
 5. If accepted, deterministic control allocation transitions to degraded profile.
 
 ## 4.5 Vision-Based Landing Hazard Detection and Avoidance (HDA)
+
+HDA provides perception-driven touchdown-site assessment and bounded divert recommendations for terminal guidance.
 
 ## 4.5.1 HDA Pipeline
 
